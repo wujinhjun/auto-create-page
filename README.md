@@ -1,6 +1,6 @@
-# vite figma 插件示例
+# vite+react figma plugin
 
-## 项目结构
+## File Structure
 
 .
 ├── README.md  
@@ -34,6 +34,5 @@
 ├── scripts  
 │   └── build.js  
 ├── tsconfig.json  
-└── yarn.lock  
-
-## 开发
+└── pnpm-lock.yaml
+└── pnpm-workspace.yaml
