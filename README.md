@@ -2,7 +2,7 @@
 
 ## File Structure
 
-.
+.  
 ├── README.md  
 ├── lerna.json  
 ├── manifest.json  
@@ -30,7 +30,7 @@
 │   │   │   ├── main.tsx  
 │   │   ├── tsconfig.json  
 │   │   ├── tsconfig.node.json  
-│   │   └── vite.config.ts  
+│   |   └── vite.config.ts  
 ├── scripts  
 │   └── build.js  
 ├── tsconfig.json  
