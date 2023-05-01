@@ -2,7 +2,7 @@
 
 ## File Structure
 
-.  
+ .  
 ├── README.md  
 ├── lerna.json  
 ├── manifest.json  
@@ -34,5 +34,5 @@
 ├── scripts  
 │   └── build.js  
 ├── tsconfig.json  
-└── pnpm-lock.yaml
+└── pnpm-lock.yaml  
 └── pnpm-workspace.yaml
