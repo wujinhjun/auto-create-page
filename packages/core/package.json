@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.0",
   "scripts": {
-    "start": "tsc && vite build -w",
+    "dev": "tsc && vite build -w",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
