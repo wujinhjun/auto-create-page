@@ -2,7 +2,8 @@
 
 ## File Structure
 
-<!-- .  
+```markdown
+.  
 ├── README.md  
 ├── lerna.json  
 ├── manifest.json  
@@ -26,8 +27,8 @@
 │        ├── package.json  
 │        ├── src  
 │        │   ├── App.tsx  
-│        │   ├── vite-env.d.ts  
-│        │   └── main.tsx  
+|        |   ├── main.tsx
+│        │   └── vite-env.d.ts  
 │        ├── tsconfig.json  
 │        ├── tsconfig.node.json  
 │        └── vite.config.ts  
@@ -35,4 +36,19 @@
 │   └── build.js  
 ├── tsconfig.json  
 └── pnpm-lock.yaml  
-└── pnpm-workspace.yaml -->
+└── pnpm-workspace.yaml
+```
+
+## development and production
+
+### develop
+
+```bash
+pnpm run dev
+```
+
+### build
+
+```bash
+pnpm run build
+```
