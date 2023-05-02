@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
