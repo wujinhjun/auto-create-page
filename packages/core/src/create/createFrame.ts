@@ -12,12 +12,17 @@ export const createFrame = async (
     return;
   }
 
+  //   create the frame
   const frame = figma.createFrame();
   parentNode?.appendChild(frame);
+
+  //   the location and the size
   const { x, y, width, height } = node.rect;
   frame.x = parent ? x - parent.rect.x : x;
   frame.y = parent ? y - parent.rect.y : y;
   frame.resizeWithoutConstraints(width, height);
+
+  //   the background
   const color = helperForColor(node.backgroundColor);
 
   frame.fills = [
@@ -28,6 +33,8 @@ export const createFrame = async (
     },
   ];
 
+  //   the shadow
+  //   TODO: I can add the filed: shadow: !styles.boxShadow === "none" to judge
   if (node.boxShadow.length > 0) {
     const { shadowColor, offsetX, offsetY, radius, spread } = dealShadow(
       node.boxShadow
@@ -49,6 +56,8 @@ export const createFrame = async (
       },
     ];
 
+    // because of the difference between Figma and chrome rendering
+    // it is necessary to consider the background color when adding shadows
     if (frame.backgrounds[0].opacity === 0) {
       let pointer = frame;
       while (pointer.backgrounds[0].opacity === 0) {
@@ -59,9 +68,12 @@ export const createFrame = async (
     }
   }
 
+  //   the border radius
   node.borderRadius && (frame.cornerRadius = node.borderRadius);
 
   //   corner case
+  //   the text
+  //   the img: we can use the Uint8Array to fill the frame
   if (node.text.length > 0) {
     const temp = createContent(node.text, node);
     frame.appendChild(temp);
