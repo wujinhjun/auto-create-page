@@ -1,30 +1,29 @@
 import { VIEW_WIDTH, VIEW_HEIGHT } from "figma-vite-common/constants/ui";
+import INode from "./types/INode";
+import { createFrame } from "./create/createFrame";
 
 figma.showUI(__html__, {
   width: VIEW_WIDTH,
   height: VIEW_HEIGHT,
 });
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
 figma.ui.onmessage = (msg) => {
-  // One way of distinguishing between different types of messages sent from
-  // your HTML page is to use an object with a "type" property like this.
+  let page: INode;
   if (msg.type === "create-rectangles") {
-    const nodes: SceneNode[] = [];
-    for (let i = 0; i < msg.count; i++) {
-      const rect = figma.createRectangle();
-      rect.x = i * 150;
-      rect.fills = [{ type: "SOLID", color: { r: 1, g: 0.5, b: 0 } }];
-      figma.currentPage.appendChild(rect);
-      nodes.push(rect);
-    }
-    figma.currentPage.selection = nodes;
-    figma.viewport.scrollAndZoomIntoView(nodes);
+    console.log("Start fetching data...");
+    fetch("http://127.0.0.1:3000")
+      .then((response) => response.json())
+      .then(async (data) => {
+        console.log(data); // 在这里处理返回的数据
+        page = data as INode;
+        await figma.loadFontAsync({ family: "Arial", style: "Regular" });
+        createFrame(page, undefined, figma.currentPage);
+        figma.closePlugin();
+      })
+      .catch((error) => {
+        console.error(error);
+        figma.closePlugin();
+      });
+    console.log("ok");
   }
-
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
 };
