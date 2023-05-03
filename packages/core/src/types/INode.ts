@@ -19,5 +19,7 @@ export default interface INode {
   fontFamily: string;
   textAlign: string;
   boxShadow: string;
+  imgData: Uint8Array;
+  borderRadius: number;
   children: INode[];
 }
