@@ -3,14 +3,15 @@ import { dealShadow, helperForColor } from "../utils";
 import { createContent } from "./createContent";
 import { createImg } from "./createImg";
 
-export const createFrame = (
+export const createFrame = async (
   node: INode,
   parent?: INode,
   parentNode?: PageNode | FrameNode
-): FrameNode | null => {
+): Promise<void> => {
   if (node.tag === "SCRIPT") {
-    return null;
+    return;
   }
+
   const frame = figma.createFrame();
   parentNode?.appendChild(frame);
   const { x, y, width, height } = node.rect;
@@ -26,6 +27,7 @@ export const createFrame = (
       opacity: color[3],
     },
   ];
+
   if (node.boxShadow.length > 0) {
     const { shadowColor, offsetX, offsetY, radius, spread } = dealShadow(
       node.boxShadow
@@ -57,19 +59,20 @@ export const createFrame = (
     }
   }
 
+  node.borderRadius && (frame.cornerRadius = node.borderRadius);
+
   //   corner case
   if (node.text.length > 0) {
     const temp = createContent(node.text, node);
     frame.appendChild(temp);
   } else if (node.src.length > 0) {
-    const content = createImg(frame);
-    frame.appendChild(content);
+    const data = new Uint8Array(node.imgData);
+    const content = await createImg(data, frame);
+
+    content && frame.appendChild(content);
   }
 
   for (const child of node.children) {
-    const temp = createFrame(child, node, frame);
-    temp && frame.appendChild(temp);
+    createFrame(child, node, frame);
   }
-
-  return frame;
 };
