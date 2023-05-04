@@ -24,7 +24,6 @@ export const createFrame = async (
 
   //   the background
   const color = helperForColor(node.backgroundColor);
-
   frame.fills = [
     {
       type: "SOLID",
@@ -87,4 +86,19 @@ export const createFrame = async (
   for (const child of node.children) {
     createFrame(child, node, frame);
   }
+
+  //   //   the auto layout
+  //   if (node.flex) {
+  //     switch (node.flexDirection) {
+  //       case "row":
+  //         frame.layoutMode = "HORIZONTAL";
+  //         break;
+  //       case "column":
+  //         frame.layoutMode = "VERTICAL";
+  //         break;
+  //       default:
+  //         frame.layoutMode = "NONE";
+  //         break;
+  //     }
+  //   }
 };
