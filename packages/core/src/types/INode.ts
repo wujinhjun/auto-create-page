@@ -21,5 +21,10 @@ export default interface INode {
   boxShadow: string;
   imgData: Uint8Array;
   borderRadius: number;
+  flex: true;
+  flexDirection: "row" | "column";
+  flexBasis: "auto";
+  flexFlow: "row nowrap";
+  flexGrow: "0";
   children: INode[];
 }

@@ -1,7 +1,7 @@
 import INode from "../types/INode";
 import { dealShadow, helperForColor } from "../utils";
 import { createContent } from "./createContent";
-import { createImg } from "./createImg";
+// import { createImg } from "./createImg";
 
 export const createFrame = async (
   node: INode,
@@ -77,8 +77,9 @@ export const createFrame = async (
     const temp = createContent(node.text, node);
     frame.appendChild(temp);
   } else if (node.src.length > 0) {
-    const data = new Uint8Array(node.imgData);
-    const content = await createImg(data, frame);
+    // const data = new Uint8Array(node.imgData);
+    // const content = await createImg(data, frame);
+    const content = createTempImg(frame);
 
     content && frame.appendChild(content);
   }
@@ -102,3 +103,18 @@ export const createFrame = async (
   //     }
   //   }
 };
+
+function createTempImg(parentNode: FrameNode) {
+  const res = figma.createRectangle();
+  const { width, height } = parentNode;
+  res.x = 0;
+  res.y = 0;
+  res.resize(width, height);
+  res.fills = [
+    {
+      type: "SOLID",
+      color: { r: 0.8, g: 0.8, b: 0.8 },
+    },
+  ];
+  return res;
+}
