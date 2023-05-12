@@ -39,7 +39,10 @@ function App() {
   };
 
   const cancel = () => {
-    window.parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+    window.parent.postMessage(
+      { pluginMessage: { type: actions.CANCEL_ACTION } },
+      "*"
+    );
   };
 
   return (
