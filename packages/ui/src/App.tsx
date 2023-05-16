@@ -24,9 +24,7 @@ function App() {
   };
 
   const submitPrompt = async () => {
-    console.log("submit");
     const res = await helpers.retryFn<INode[]>(fetchData, 3, 1500);
-    console.log(res);
 
     create(res);
   };
